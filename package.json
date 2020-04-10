@@ -1,0 +1,7 @@
+{
+  "name": "async-prog-nonblock-io-streams",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "repository": "https://github.com/mentorship-olehmushka/async-prog-nonblock-io-streams.git",
+  "license": "MIT"
+}
