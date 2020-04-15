@@ -1,0 +1,34 @@
+const fs = require('fs');
+const crypto = require('crypto');
+
+const DEFAULT_CHUNK_SIZE = 512;
+
+function generateFile(name, size) {
+  const pathToFile = `${name}.txt`;
+  const writeStream = fs.createWriteStream(pathToFile);
+
+  const generateRandomBytes = (size) => {
+    const randomBytes = crypto.randomBytes(size);
+    return randomBytes.toString('hex');
+  };
+
+  function* generateBytes(size, quantity) {
+    for (let i = 0; i <= quantity; i++) {
+      yield generateRandomBytes(size);
+    }
+  }
+  const bytes = generateBytes(DEFAULT_CHUNK_SIZE, size);
+
+  for(let value of bytes) {
+    writeStream.write(value + '\n');
+  }
+  // here we get actual file size
+  console.log('current size', writeStream.writableLength);
+  writeStream.end();
+
+  const stats = fs.statSync(pathToFile);
+  //here we get 0
+  console.log(`Created file - ${pathToFile} with size - ${stats["size"]}`);
+}
+
+module.exports = generateFile;
